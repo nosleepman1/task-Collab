@@ -17,9 +17,11 @@ $dotenv->load();
 
     require_once '../src/controllers/MainController.php';
     require_once '../src/controllers/UserController.php';
+    require_once '../src/controllers/TaskController.php';
     
     $controller = new MainController();
     $UserController = new UserController();
+    $TaskController = new TaskController();
 
     
 
@@ -29,16 +31,16 @@ $dotenv->load();
                 $controller->home();
                 break;
             case 'login':
-                $controller->login();
+                $UserController->login();
                 break;
             case 'register':
                 $UserController->register();
                 break;
-            
+
             case 'tasks':
-                $controller->tasks();
+                $TaskController->create();
                 break;
-            
+
 
             default:
                 $controller->notFound();

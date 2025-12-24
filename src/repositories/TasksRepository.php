@@ -1,6 +1,8 @@
 <?php 
 
     require_once __DIR__ ."/../../database/Database.php";
+    require_once __DIR__ ."/../models/Task.php";
+
     class TasksRepository {
         private $db;
 
@@ -17,9 +19,21 @@
             return $result;
         }
 
-        public function createTask($title, $description, $id_user) {
+        public function createTask(Task $task, $id_user) {
             $query = $this->db->prepare("INSERT INTO tasks (title, description, userId) VALUES (?,?,?)");
-            $query->execute([$title, $description, $id_user]);
+            $query->execute([$task->getTitle(), $task->getDescription(), $id_user]);
+        }
+
+        public function findTasksByUserId($userId) {
+            $query = $this->db->prepare("SELECT * FROM tasks WHERE userId = ? ORDER BY created_at DESC");
+            $query->execute([$userId]);
+            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            $tasks = [];
+            foreach ($results as $row) {
+                $tasks[] = new Task($row['title'], $row['description'], $row['status'], $row['id']);
+            }
+            return $tasks;
         }
 
         public function All(){

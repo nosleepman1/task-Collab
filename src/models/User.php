@@ -11,7 +11,7 @@
             $this->id = $id;
             $this->username = $username;
             $this->email = $email;
-            $this->password = password_hash($password, PASSWORD_DEFAULT);
+            $this->password = $password;
         }
 
         public function getId() {

@@ -16,7 +16,7 @@
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 $username = $_POST['username'];
-                $password = $_POST['password'];
+                $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
                 $email = $_POST['email'];
 
                 UserMiddleware::dataValidation($username, $password, $email);
@@ -44,26 +44,42 @@
 
             if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-                $email = $_POST['email'];
+                // Vérifier que les champs requis sont présents
+                if (!isset($_POST['email']) || !isset($_POST['password'])) {
+                    $_SESSION['signError'] = "Tous les champs sont requis";
+                    header("Location: /login");
+                    exit;
+                }
+
+                $email = trim($_POST['email']);
                 $password = $_POST['password'];
 
-                $userRow = $this->userRepo->findByEmail($email);
+                // Validation basique de l'email
+                if (empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $_SESSION['signError'] = "Adresse email invalide";
+                    header("Location: /login");
+                    exit;
+                }
 
-                if(!$userRow) {
+                $user = $this->userRepo->findByEmail($email);
+
+                if(!$user) {
                     $_SESSION['signError'] = "Adresse Mail ou Mot de passe incorrect";
                     header("Location: /login");
                     exit;
                 }
 
-                if(!password_verify($password, $userRow['password'])) { 
+                if(!password_verify($password, $user->getPassword())) {
                     $_SESSION['signError'] = "Adresse Mail ou Mot de passe incorrect";
                     header("Location: /login");
                     exit;
                 }
 
                 $_SESSION["authenticated"] = true;
-                $_SESSION["username"] = $userRow["username"];
+                $_SESSION["user_id"] = $user->getId();
+                $_SESSION["username"] = $user->getUsername();
                 header("Location: /tasks");
+
                 exit;
             } else {
                 require_once __DIR__ ."/../../views/auth/login.php";

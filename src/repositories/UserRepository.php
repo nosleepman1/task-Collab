@@ -17,7 +17,7 @@ class UserRepository {
         $stmt->execute(['id' => $id]);
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new User($row['id'], $row['username'], $row['email'], $row['password']);
+            return new User($row['username'], $row['email'], $row['password'], $row['id']);
         }
         return null;
     }
@@ -26,7 +26,7 @@ class UserRepository {
         $stmt = $this->pdo->query("SELECT * FROM users");
         $users = [];
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            $users[] = new User($row['id'], $row['username'], $row['email'], $row['password']);
+            $users[] = new User($row['username'], $row['email'], $row['password'], $row['id']);
         }
         return $users;
     }
@@ -38,7 +38,7 @@ class UserRepository {
         
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($row) {
-            return new User($row['id'], $row['username'], $row['email'], $row['password']);
+            return new User($row['username'], $row['email'], $row['password'], $row['id']);
         }
         return null;
     }

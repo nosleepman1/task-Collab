@@ -1,5 +1,5 @@
 <?php
-$title = "Connexion - TaskColllab";
+$title = "Connexion - TaskCollab";
 $currentPage = 'login';
 include __DIR__ . '/../components/alert.php';
 ob_start();
@@ -9,11 +9,15 @@ ob_start();
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
 
         <div>
-
             <?php if(isset($_SESSION['registered']) ) {
-                AlertMessage('Succes','Inscription Reussie Connectez vous');
+                AlertMessage('Succès','Inscription Réussie. Connectez-vous !');
+                unset($_SESSION['registered']); // Nettoyer la session
             } ?>
 
+            <?php if(isset($_SESSION['signError']) ) {
+                AlertMessage('Erreur', $_SESSION['signError']);
+                unset($_SESSION['signError']); // Nettoyer la session
+            } ?>
         </div>
 
         <!-- En-tête -->
@@ -25,7 +29,7 @@ ob_start();
          </div>
         <!-- Formulaire -->
          <div class="mt-8 bg-white py-8 px-6 shadow rounded-lg sm:px-10">
-            <form class="space-y-6" action="">
+            <form class="space-y-6" action="/login" method="POST">
                 <!-- Email -->
                 <div class="mb-4">
                     <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
