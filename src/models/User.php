@@ -7,11 +7,11 @@
         private $email;
         private $password;
 
-        public function __construct($id, $username, $email, $password) {
+        public function __construct($username, $email, $password, $id = null) {
             $this->id = $id;
             $this->username = $username;
             $this->email = $email;
-            $this->password = $password;
+            $this->password = password_hash($password, PASSWORD_DEFAULT);
         }
 
         public function getId() {

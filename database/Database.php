@@ -1,7 +1,5 @@
 <?php 
 
-    require_once __DIR__ . '/../../vendor/autoload.php';
-    use Dotenv\Dotenv;
 
     class Database {
 
@@ -19,7 +17,7 @@
                 $user = $_ENV['DB_USER'];
                 $pass = $_ENV['DB_PASS'];
 
-                $dsn = "pgsql:host=$host;port=$port;dbname=$db";
+                $dsn = "mysql:host=$host;port=$port;dbname=$db";
 
                 self::$pdo = new PDO($dsn, $user, $pass, [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
