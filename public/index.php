@@ -1,4 +1,5 @@
 <?php
+session_start();
 $requestUri = $_SERVER['REQUEST_URI'];
 
 // On prend uniquement le chemin, sans les query params
@@ -30,11 +31,17 @@ $dotenv->load();
                 $controller->accueil();
                 break;
             case 'login':
-                $controller->about();
+                $controller->login();
                 break;
             case 'register':
                 $UserController->register();
                 break;
+            
+            case 'tasks':
+                $controller->tasks();
+                break;
+            
+
             default:
                 $controller->notFound();
                 break;

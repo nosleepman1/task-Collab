@@ -1,12 +1,21 @@
 <?php
 $title = "Connexion - TaskColllab";
 $currentPage = 'login';
-
+include __DIR__ . '/../components/alert.php';
 ob_start();
 ?>
 
 <div class="min-h-[80vh] flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-gray-50">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
+
+        <div>
+
+            <?php if(isset($_SESSION['registered']) ) {
+                AlertMessage('Succes','Inscription Reussie Connectez vous');
+            } ?>
+
+        </div>
+
         <!-- En-tête -->
          <div class="text-center">
             <h1 class="text-3xl font-bold text-gray-900">Connexion à votre compte</h1>
