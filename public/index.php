@@ -7,11 +7,9 @@ $path = trim($path, '/');
 
 $path = strtok($path, '?');
 
-require_once __DIR__ . '/../vendor/autoload.php';
-use Dotenv\Dotenv;
 
-$dotenv = Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->load();
+
+
 
 
     require_once '../src/controllers/MainController.php';
