@@ -2,10 +2,8 @@
 session_start();
 $requestUri = $_SERVER['REQUEST_URI'];
 
-// On prend uniquement le chemin, sans les query params
 $path = parse_url($requestUri, PHP_URL_PATH);
 
-// Supprime les / au début et à la fin
 $path = trim($path, '/');
 
 
@@ -27,8 +25,8 @@ $dotenv->load();
 
     switch($path) {
             case '':
-            case 'accueil':
-                $controller->accueil();
+            case 'home':
+                $controller->home();
                 break;
             case 'login':
                 $controller->login();

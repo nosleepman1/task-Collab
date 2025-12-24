@@ -7,7 +7,7 @@
         private $description;
         private $status;
 
-        public function __construct($id, $title, $description, $status = 'pending') {
+        public function __construct($id = null, $title, $description, $status = 'pending') {
             $this->id = $id;
             $this->title = $title;
             $this->description = $description;

@@ -2,7 +2,7 @@
 
 class MainController
 {
-    public function accueil()
+    public function home()
     {
         require_once __DIR__ . '/../../views/pages/accueil.php';
     }
