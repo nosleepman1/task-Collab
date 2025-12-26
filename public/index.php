@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $requestUri = $_SERVER['REQUEST_URI'];
 
 $path = parse_url($requestUri, PHP_URL_PATH);
@@ -40,8 +41,6 @@ $dotenv->load();
             case 'tasks':
                 $TaskController->create();
                 break;
-
-
             default:
                 $controller->notFound();
                 break;

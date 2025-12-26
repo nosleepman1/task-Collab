@@ -19,15 +19,17 @@
                 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
                 $email = $_POST['email'];
 
-                UserMiddleware::dataValidation($username, $password, $email);
+                //UserMiddleware::dataValidation($username, $password, $email);
                 
                 $user = new User($username, $email, $password);
 
                 try {
+                    
                     $this->userRepo->createUser($user);
                     $_SESSION['registered'] = true;
                     header('Location: /login');
                     exit;
+
                 } catch (Exception $e) {
                     $_SESSION['error'] = 'registration_failed';
                     header('Location: /register');
