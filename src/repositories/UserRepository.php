@@ -4,7 +4,7 @@ namespace App\repositories;
 
 require_once __DIR__ . '/../../vendor/autoload.php';
 
-use Database\Database;
+use App\config\Database;
 use App\models\User;
 
 class UserRepository {
