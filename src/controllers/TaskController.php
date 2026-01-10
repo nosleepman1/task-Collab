@@ -1,10 +1,10 @@
 <?php
 
-use Src\Models\Task\Task;
+    require_once __DIR__ . '/../../vendor/autoload.php';
+    require_once __DIR__ . '/../middlewares/taskValidations.php';
 
-    require_once __DIR__ . '/../models/Task.php';
-    require_once __DIR__ . '/../middlewares/taskValidations.php';   
-    require_once __DIR__ .'/../repositories/TasksRepository.php';
+    use App\models\Task;
+    use App\repositories\TasksRepository;
 
     //send json
 
@@ -24,9 +24,8 @@ use Src\Models\Task\Task;
                 require_once __DIR__ . "/../../views/auth/authRequire.php";
             }
 
-            $taskRepo = new TasksRepository();
             $userId = $_SESSION["user_id"];
-            $tasks = $taskRepo->findTasksByUserId($userId);
+            $tasks = $this->taskRepo->findTasksByUserId($userId);
 
             require_once __DIR__ . '/../../views/tasks/tasks.php';
         }

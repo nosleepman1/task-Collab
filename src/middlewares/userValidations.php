@@ -1,5 +1,4 @@
 <?php
-    require_once __DIR__ . '/../models/User.php';
     class UserMiddleware {
 
         public static function dataValidation ($username, $password, $email ) { 

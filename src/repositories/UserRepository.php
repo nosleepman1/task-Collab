@@ -1,8 +1,11 @@
 <?php
 
-use Database\Database;
-use Src\Models\User;
+namespace App\repositories;
 
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use Database\Database;
+use App\models\User;
 
 class UserRepository {
     
@@ -17,7 +20,7 @@ class UserRepository {
         
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = :id");
         $stmt->execute(['id' => $id]);
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         if ($row) {
             return new User($row['username'], $row['email'], $row['password'], $row['id']);
         }
@@ -27,7 +30,7 @@ class UserRepository {
     public function findAll() {
         $stmt = $this->pdo->query("SELECT * FROM users");
         $users = [];
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             $users[] = new User($row['username'], $row['email'], $row['password'], $row['id']);
         }
         return $users;
@@ -38,7 +41,7 @@ class UserRepository {
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
         
-        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
         if ($row) {
             return new User($row['username'], $row['email'], $row['password'], $row['id']);
         }

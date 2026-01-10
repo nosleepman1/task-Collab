@@ -1,9 +1,11 @@
 <?php 
 
+    namespace App\repositories;
+
+    require_once __DIR__ . '/../../vendor/autoload.php';
+
     use Database\Database;
-    use App\Models\Task;
-    
-    require_once __DIR__ ."/../models/Task.php";
+    use App\models\Task;
 
     class TasksRepository {
         private $db;
@@ -16,7 +18,7 @@
             $query = $this->db->prepare("SELECT * FROM tasks WHERE id = ?");
             $query->execute([$id]);
 
-            $result = $query->fetch(PDO::FETCH_ASSOC);
+            $result = $query->fetch(\PDO::FETCH_ASSOC);
             
             return $result;
         }
@@ -29,7 +31,7 @@
         public function findTasksByUserId($userId) {
             $query = $this->db->prepare("SELECT * FROM tasks WHERE userId = ? ORDER BY created_at DESC");
             $query->execute([$userId]);
-            $results = $query->fetchAll(PDO::FETCH_ASSOC);
+            $results = $query->fetchAll(\PDO::FETCH_ASSOC);
 
             $tasks = [];
             foreach ($results as $row) {
@@ -41,7 +43,7 @@
         public function All(){
             $query = $this->db->prepare("SELECT * FROM tasks");
             $query->execute();
-            $result = $query->fetch(PDO::FETCH_ASSOC);
+            $result = $query->fetch(\PDO::FETCH_ASSOC);
             return $result;
         }
 

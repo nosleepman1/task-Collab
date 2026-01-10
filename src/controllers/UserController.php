@@ -1,7 +1,9 @@
 <?php 
-    require_once __DIR__ . '/../models/User.php';
-    require_once __DIR__ . '/../repositories/UserRepository.php';
+    require_once __DIR__ . '/../../vendor/autoload.php';
     require_once __DIR__ . '/../middlewares/userValidations.php';
+  
+    use App\models\User;
+    use App\repositories\UserRepository;
   
     //session_start();
     class UserController {
@@ -30,7 +32,7 @@
                     header('Location: /login');
                     exit;
 
-                } catch (Exception $e) {
+                } catch (\Exception $e) {
                     $_SESSION['error'] = 'registration_failed';
                     header('Location: /register');
                     exit;
