@@ -9,10 +9,8 @@ $path = trim($path, '/');
 
 
 //initialisation env ...avoid appel a chaque appel de database instance
-require __DIR__ .'/../vendor/autoload.php';
-use Dotenv\Dotenv;
-$dotenv  = Dotenv::createImmutable(dirname(__DIR__));
-$dotenv->load();
+require_once '../config/config.php';
+
 
 
 

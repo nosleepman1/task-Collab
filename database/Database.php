@@ -1,5 +1,9 @@
 <?php 
 
+    #creation namespace
+    namespace Database;
+    use PDO;
+    use PDOException;
 
     class Database {
 
@@ -9,21 +13,25 @@
 
         public static function getInstance() {
 
-            if (!self::$pdo) {
+            try {
+                
+                if (!self::$pdo) {
 
-                $host = $_ENV['DB_HOST'];
-                $port = $_ENV['DB_PORT'];
-                $db   = $_ENV['DB_NAME'];
-                $user = $_ENV['DB_USER'];
-                $pass = $_ENV['DB_PASS'];
+                    $host = $_ENV['DB_HOST'];
+                    $port = $_ENV['DB_PORT'];
+                    $db   = $_ENV['DB_NAME'];
+                    $user = $_ENV['DB_USER'];
+                    $pass = $_ENV['DB_PASS'];
 
-                $dsn = "mysql:host=$host;port=$port;dbname=$db";
+                    $dsn = "mysql:host=$host;port=$port;dbname=$db";
 
-                self::$pdo = new PDO($dsn, $user, $pass, [
-                    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                ]);
-
+                    self::$pdo = new PDO($dsn, $user, $pass, [
+                        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+                    ]);
+                }
+            } catch (PDOException $e) {
+                return $e->getMessage();
             }
             
             return self::$pdo;

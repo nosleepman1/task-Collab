@@ -1,6 +1,8 @@
 <?php 
 
-    require_once __DIR__ ."/../../database/Database.php";
+    use Database\Database;
+    use App\Models\Task;
+    
     require_once __DIR__ ."/../models/Task.php";
 
     class TasksRepository {

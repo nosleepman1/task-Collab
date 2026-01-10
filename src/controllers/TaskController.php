@@ -1,9 +1,9 @@
 <?php
 
-use PHPUnit\Util\Json;
+use Src\Models\Task\Task;
 
-    require_once __DIR__ . '/../middlewares/taskValidations.php';
-    require_once __DIR__ .'/../models/Task.php';
+    require_once __DIR__ . '/../models/Task.php';
+    require_once __DIR__ . '/../middlewares/taskValidations.php';   
     require_once __DIR__ .'/../repositories/TasksRepository.php';
 
     //send json
