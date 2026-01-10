@@ -12,6 +12,14 @@ Le projet adopte :
 
 ---
 
+# Uilisation
+Clonez le repo avec 
+```
+git clone https://github.com/nosleepman1/task-Collab
+```
+creer un fichier **.env**  avec les donnees de .env.exemple
+
+---
 ##  Fonctionnalités
 
 ###  Authentification
@@ -79,4 +87,6 @@ taskmanager/
 ├── composer.json
 └── README.md
 ```
+
+
 
