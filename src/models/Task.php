@@ -1,6 +1,7 @@
 <?php 
     namespace App\models;
-    class Task {
+    use App\Models\BaseEntity;
+    class Task extends BaseEntity{
        
         private $id;
         private $title;
@@ -28,5 +29,15 @@
 
         public function getStatus() {
             return $this->status;
+        }
+
+        public function toArray(): array
+        {
+            return [
+                'id' => $this->getId(),
+                'createdAt' => $this->getCreatedAt() ? $this->getCreatedAt()->format('Y-m-d H:i:s') : null,
+                'updatedAt' => $this->getUpdatedAt() ? $this->getUpdatedAt()->format('Y-m-d H:i:s') : null,
+
+            ];
         }
     }

@@ -1,11 +1,8 @@
 <?php 
-
     namespace App\models;
     use App\Models\BaseEntity;
     
     class User extends BaseEntity {
-       
-        private $id;
         private string $firstname;
         private string $lastname;
         private $email;
@@ -15,18 +12,16 @@
         
 
         public function __construct($firstname, $lastname, $email, $password) {
+            parent::__construct();
             $this->firstname = $firstname;
             $this->lastname = $lastname;
             $this->email = $email;
-            $this->password = $password;
-            parent::__construct();
+            $this->password = $this->setPassword($password);
+            
         }
 
         
 
-        public function getId() {
-            return $this->id;
-        }
 
         public function getFirsname() {
             return $this->firstname;
@@ -44,6 +39,23 @@
             return $this->password;
         }
 
+        public function getRole() {
+            return $this->role;
+        }
+
+       
+
+        
+
+        /**
+         * 
+         */
+        public function setRole(?string $role): self {
+            in_array($role, ['admin', 'member']);
+            $this->role = $role;
+            return $this;
+        }
+
         public function setPassword(string $password): self {
             $this->password = password_hash($password, PASSWORD_BCRYPT);
             return $this;
@@ -56,7 +68,7 @@
 
 
          public function verifyPassword(string $password) : bool{
-                return $this->password = password_verify($this->password, $password);      
+                return $this->password = password_verify($password, $this->password);      
          }
 
          public function getFullname() {
@@ -70,12 +82,24 @@
             return $first . $last;
          }
 
+         public function isActive(){
+            return $this->is_active;
+         }
+
         
          public function toArray(): array
         {
             return [
-                'id' => $this->id,
-                'createdAt' => $this->create
+                'id' => $this->getId(),
+                'createdAt' => $this->getCreatedAt() ? $this->getCreatedAt()->format('Y-m-d H:i:s') : null,
+                'updatedAt' => $this->getUpdatedAt() ? $this->getUpdatedAt()->format('Y-m-d H:i:s') : null,
+
+                'firstname' => $this->getFirsname(),
+                'lastname' => $this->getLastname(),
+                'email' => $this->getEmail(),
+                'password' => $this->getPassword(),
+                'role' => $this->getRole(),
+                'is_active' => $this->isActive()
             ];
         }
          

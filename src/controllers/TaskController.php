@@ -1,8 +1,5 @@
 <?php
 
-    require_once __DIR__ . '/../../vendor/autoload.php';
-    require_once __DIR__ . '/../middlewares/taskValidations.php';
-
     use App\models\Task;
     use App\repositories\TasksRepository;
 

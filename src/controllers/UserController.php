@@ -1,6 +1,5 @@
 <?php 
-    require_once __DIR__ . '/../../vendor/autoload.php';
-    require_once __DIR__ . '/../middlewares/userValidations.php';
+    
   
     use App\models\User;
     use App\repositories\UserRepository;

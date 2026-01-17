@@ -1,19 +1,16 @@
 <?php
 
 namespace App\repositories;
-
-require_once __DIR__ . '/../../vendor/autoload.php';
-
-use App\config\Database;
+use App\repositories\BaseRepository;
 use App\models\User;
 
-class UserRepository {
+class UserRepository extends BaseRepository{
     
 
     private $pdo;
 
     public function __construct() {
-        $this->pdo = Database::getInstance();
+        
     }
 
     public function findById($id) {
@@ -28,7 +25,7 @@ class UserRepository {
     }
 
     public function findAll() {
-        $stmt = $this->pdo->query("SELECT * FROM users");
+        $stmt = $this->pdo->prepare("SELECT * FROM users");
         $users = [];
         while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
             $users[] = new User($row['username'], $row['email'], $row['password'], $row['id']);
