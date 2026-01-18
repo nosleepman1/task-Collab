@@ -4,7 +4,7 @@ namespace App\repositories;
 use App\repositories\BaseRepository;
 use App\models\User;
 
-class UserRepository extends BaseRepository{
+class UserRepository extends BaseRepository {
     
 
     private $pdo;

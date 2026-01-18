@@ -5,6 +5,7 @@ use App\Config\Database;
 use App\Models\BaseEntity;
 use PDO;
 use PDOException;
+use PHPUnit\Framework\MockObject\Generator\DuplicateMethodException;
 
     abstract class BaseRepository {
       
@@ -76,4 +77,6 @@ use PDOException;
             $message = date('Y-m-d H:i:s') . "<br> Erreur PDO : " . $e->getMessage(). PHP_EOL;
         }
         abstract public function toArray(): array;
-    }
+
+        
+    } 
