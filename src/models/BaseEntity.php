@@ -36,6 +36,12 @@
             return $this;
         }
 
+        public function setUpdatedAt(DateTime $date): self  {
+            $this->updatedAt = $date;
+            return $this;
+        }
+
+
         public function touch(DateTime $date): self  {
             $this->updatedAt = new DateTime();
             return $this;

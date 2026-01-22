@@ -12,7 +12,7 @@ class UserRepository extends BaseRepository {
     protected string $tableName = 'users';
     
 
-    protected function hydrate(array $data) : BaseEntity {
+    protected function hydrate(array $data) : User {
         $user = new User();
         $user->setId((int)$data['id']);
         $user->setFirstname($data['firstname']);
@@ -21,6 +21,8 @@ class UserRepository extends BaseRepository {
         $user->setPasswordHash($data['password']);
         $user->setRole($data['role']);
         $user->setAvatar($data['avatar']);
+        $user->setCreatedAt($data['created_at']);
+        $user->setUpdatedAt($data['updated_at']);
         return $user;
 
     }
@@ -30,8 +32,10 @@ class UserRepository extends BaseRepository {
         try{
             $sql = "SELECT * FROM {$this->tableName} WHERE email = :email";
 
-            $this->pdo->prepare($sql)->execute([':email' => $email]);
-            $result = $this->pdo->prepare($sql)->fetch();
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['email' => $email]);
+            $result = $stmt->fetch();
+
             if ($result) {
                 return $this->hydrate($result);
             }
@@ -66,5 +70,7 @@ class UserRepository extends BaseRepository {
             return $user;
         }
     }
+
+    
     
 }
