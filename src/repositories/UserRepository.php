@@ -1,64 +1,70 @@
 <?php
 
 namespace App\repositories;
-use App\repositories\BaseRepository;
+use App\models\BaseEntity;
 use App\models\User;
+
+use PDO;
+use PDOException;
 
 class UserRepository extends BaseRepository {
     
+    protected string $tableName = 'users';
+    
 
-    private $pdo;
+    protected function hydrate(array $data) : BaseEntity {
+        $user = new User();
+        $user->setId((int)$data['id']);
+        $user->setFirstname($data['firstname']);
+        $user->setLastname($data['lastname']);
+        $user->setEmail($data['email']);
+        $user->setPasswordHash($data['password']);
+        $user->setRole($data['role']);
+        $user->setAvatar($data['avatar']);
+        return $user;
 
-    public function __construct() {
-        
     }
 
-    public function findById($id) {
-        
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE id = :id");
-        $stmt->execute(['id' => $id]);
-        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
-        if ($row) {
-            return new User($row['username'], $row['email'], $row['password'], $row['id']);
-        }
-        return null;
-    }
-
-    public function findAll() {
-        $stmt = $this->pdo->prepare("SELECT * FROM users");
-        $users = [];
-        while ($row = $stmt->fetch(\PDO::FETCH_ASSOC)) {
-            $users[] = new User($row['username'], $row['email'], $row['password'], $row['id']);
-        }
-        return $users;
-    }
 
     public function findByEmail($email) {
-        
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
-        $stmt->execute(['email' => $email]);
-        
-        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
-        if ($row) {
-            return new User($row['username'], $row['email'], $row['password'], $row['id']);
+        try{
+            $sql = "SELECT * FROM {$this->tableName} WHERE email = :email";
+
+            $this->pdo->prepare($sql)->execute([':email' => $email]);
+            $result = $this->pdo->prepare($sql)->fetch();
+            if ($result) {
+                return $this->hydrate($result);
+            }
+            return null;
+        }catch (PDOException $e) {
+            $this->logError($e);
         }
-        return null;
     }
 
-    public function createUser(User $user) {
+    public function create(User $user) {
 
-        $stmt = $this->pdo->prepare("INSERT INTO users (username, email, password) VALUES (:username, :email, :password)");
-        $stmt->execute([
-            'username' => $user->getUsername(),
-            'email' => $user->getEmail(),
-            'password' => $user->getPassword()
-        ]);
-
+        if (!$user->getId()) {
+            $sql  = "INSERT INTO {$this->tableName} (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                'firstname' => $user->getFirsname(),
+                'lastname' => $user->getLastname(),
+                'email' => $user->getEmail(),
+                'password' => $user->getPassword()
+            ]);
+            return $user;
+        } else {
+            $sql = "UPDATE {$this->tableName} SET firstname = :firstname, lastname = :lastname, email = :email, password = :password WHERE id = :id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                'firstname' => $user->getFirsname(),
+                'lastname' => $user->getLastname(),
+                'email' => $user->getEmail(),
+                'password' => $user->getPassword(),
+                'id' => $user->getId()
+            ]);
+            return $user;
+        }
     }
-
-    public function delete($id) {
-        $stmt = $this->pdo->prepare("DELETE FROM users WHERE id = :id");
-        $stmt->execute(['id' => $id]);
-    }
+    
 }
-?>

@@ -5,19 +5,18 @@ use App\Config\Database;
 use App\Models\BaseEntity;
 use PDO;
 use PDOException;
-use PHPUnit\Framework\MockObject\Generator\DuplicateMethodException;
 
     abstract class BaseRepository {
       
-        private PDO $pdo;
-        private $tableName;
+        protected PDO $pdo;
+        protected string $tableName;
         
         public function __construct() {
            $conn = Database::getInstance();
            $this->pdo = $conn->getConnection();
         }
 
-        abstract public function hydrate(array $data) : BaseEntity;
+        abstract protected function hydrate(array $data) : BaseEntity;
 
         public function hydrateMultiple(array $results): array {
             $entities = [];
@@ -27,6 +26,10 @@ use PHPUnit\Framework\MockObject\Generator\DuplicateMethodException;
             }
 
             return $entities;
+        }
+
+        protected function LastInsertId() {
+            return $this->pdo->lastInsertId();
         }
 
 
@@ -68,6 +71,18 @@ use PHPUnit\Framework\MockObject\Generator\DuplicateMethodException;
             }
         }
 
+        protected function executeCommand($sql, array $params = []) {
+            try {
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute($params);
+                return $stmt->rowCount() > 0;
+            } catch (PDOException $e) {
+                $this->logError($e);
+            }
+        }
+
+ 
+
         protected function logError(PDOException $e) {
             $logFile = ROOT_PATH . '/logs/repository.log';
 
@@ -76,7 +91,7 @@ use PHPUnit\Framework\MockObject\Generator\DuplicateMethodException;
             }
             $message = date('Y-m-d H:i:s') . "<br> Erreur PDO : " . $e->getMessage(). PHP_EOL;
         }
-        abstract public function toArray(): array;
+        
 
         
     } 

@@ -8,16 +8,19 @@
         private $email;
         private $password;
         private ?bool $is_active = true;
-        private ?string $role = 'member' ;
+        private ?string $role = 'member';
+        private string $avatar = null;
         
 
-        public function __construct($firstname, $lastname, $email, $password) {
+       public function __construct(string $nom = '', 
+        string $prenom = '', 
+        string $email = '',
+        string $password = '') {
             parent::__construct();
-            $this->firstname = $firstname;
-            $this->lastname = $lastname;
+            $this->lastname = $nom;
+            $this->firstname = $prenom;
             $this->email = $email;
-            $this->password = $this->setPassword($password);
-            
+            $this->password = $password;
         }
 
         
@@ -43,13 +46,47 @@
             return $this->role;
         }
 
-       
+        public function getAvatar() {
+            return $this->avatar;
+        }
 
-        
+        public function getFullname() {
+            return " {$this->firstname}  {$this->lastname}";
+         }
+
+
+         public function getInitials() {
+            $first = $this->firstname ? $this->firstname[0] : '';
+            $last = $this->lastname ? $this->lastname[0] : '';
+            return $first . $last;
+         }
 
         /**
          * 
          */
+
+        public function setFirstname(string $firstname): self {
+            $this->firstname = $firstname;
+            return $this;
+        }
+
+        public function setLastname(string $lastname): self {
+            $this->lastname = $lastname;
+            return $this;
+        }
+
+        public function setEmail(string $email): self {
+            $this->email = $email;
+            return $this;
+        }
+
+        public function setAvatar(string $avatar): self {
+            $this->avatar = $avatar;
+            return $this;
+        }
+
+
+
         public function setRole(?string $role): self {
             in_array($role, ['admin', 'member']);
             $this->role = $role;
@@ -71,16 +108,7 @@
                 return $this->password = password_verify($password, $this->password);      
          }
 
-         public function getFullname() {
-            return " {$this->firstname}  {$this->lastname}";
-         }
-
-
-         public function getInitials() {
-            $first = $this->firstname ? $this->firstname[0] : '';
-            $last = $this->lastname ? $this->lastname[0] : '';
-            return $first . $last;
-         }
+         
 
          public function isActive(){
             return $this->is_active;
@@ -99,7 +127,11 @@
                 'email' => $this->getEmail(),
                 'password' => $this->getPassword(),
                 'role' => $this->getRole(),
-                'is_active' => $this->isActive()
+                'is_active' => $this->isActive(),
+
+                'avatar' => $this->getAvatar(),
+                'fullname' => $this->getFullname(),
+                'initials' => $this->getInitials(),
             ];
         }
          
