@@ -1,72 +1,69 @@
 <?php 
-
     $currentPage = "tasks";
     $title = "tasks";
-    
     ob_start();
-
     ?>
-      
 
 
-        <div class="bg-gray-100  ">
+<div class="container">
 
-            <div class="grid grid-cols-1 md:grid-cols-2 min-h-screen">
+    <div class="flex justify-between">
+        <p>
+            Liste des tâches
+        </p>
 
-            <div class="p-6">
-                        
-                <h2 class="text-2xl font-bold mb-4">Mes tâches</h2>
+        <a href="/create" class="btn">
+            Creer une tache
+        </a>
+    </div>
 
-                
-                 <ul class="space-y-3">
+    <div>
 
-                    <!-- 🟦 Carte tâche -->
-                     <?php foreach ($tasks as $task): ?>
-                    <li class="bg-white p-4 rounded-xl shadow flex flex-col gap-2">
+        <table>
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
 
-                        <div>
-                        <h4 class="task-title font-semibold text-lg">
-                            <?php echo $task->getTitle(); ?>
-                        </h4>
+            <tbody>
+                <?php foreach($tasks as $task): ?>
+                <tr>
+                    <td>
+                        <?=  $task->getTitle(); ?>
+                    </td>
+                    <td>
+                        <?=  $task->getDescription(); ?>
+                    </td>
+                    <td>
+                        <?=  $task->getStatus();  ?>
+                    </td>
+                    <td>
+                        <form action="/update" method="post">
+                            <input type="hidden" name="id" value="<?= $task->getId() ?>">
+                            <button class="btn btn-primary">Modifier</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/delete" method="post">
+                            <input type="hidden" name="id" value="<?= $task->getId(); ?>">
+                            <button class="btn btn-danger">Supprimer</button>
+                        </form>
+                    </td>
 
-                        <p class="task-desc text-sm text-gray-600">
-                            <?php echo $task->getDescription(); ?>               
-                        </p>
-                        </div>
+                    <?php endforeach ?>
+            </tbody>
 
-                        <!-- Boutons actions -->
-                        <div class="flex gap-2 justify-end">
+        </table>
 
-                        <button
-                            class="editBtn px-3 py-1 rounded-lg border">
-                            Modifier
-                        </button>
+    </div>
 
-                        <button
-                            class="deleteBtn px-3 py-1 rounded-lg bg-red-600 text-white">
-                            Supprimer
-                        </button>
-
-                        </div>
-                    </li>
-
-                    <?php endforeach; ?>
-
-
-                    </ul>
-
-                    
-            </div>
-
-            <?php require_once __DIR__ . '/create.php' ?>
-
+</div>
 
 <?php 
-            
-
-
     $content = ob_get_clean();
     require_once __DIR__ ."/../layouts/main.php";
 ?>
-
-

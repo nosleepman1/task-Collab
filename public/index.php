@@ -50,7 +50,7 @@ require_once '../config/config.php';
                 break;
 
             case 'tasks':
-                $TaskController->create();
+                
                 break;
             default:
                 $controller->notFound();
