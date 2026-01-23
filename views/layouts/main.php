@@ -106,10 +106,10 @@
 
     if(isset($success)) {
         ?>
-    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert"></div>
-    <strong class="font-bold">Succès:</strong>
-    <span class="block sm:inline"> <?= $success ?> </span>
-    <a href="#" class="
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Succès:</strong>
+        <span class="block sm:inline"> <?= $success ?> </span>
+        <a href="#" class="
                     float-right
                     text-green-600
                     hover:text-green-900

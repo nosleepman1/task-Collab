@@ -17,7 +17,7 @@
         </a>
     </div>
 
-    <div>
+    <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
         <?php if(!$tasks): ?>
         <h1 class="text-4xl text-center text-bold">Pas de tache disponible</h1>
         <div class="h-[500px] flex justify-center items-center">
@@ -29,45 +29,52 @@
         <?php else: ?>
 
 
-        <table>
-            <thead>
+
+
+        <table class="w-full text-sm text-left rtl:text-right text-body">
+            <thead class="text-sm text-body bg-neutral-secondary-medium border-b border-default-medium">
                 <tr>
-                    <th>Titre</th>
-                    <th>Description</th>
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th scope="col" class="px-6 py-3 font-medium">
+                        Titre
+                    </th>
+                    <th scope="col" class="px-6 py-3 font-medium">
+                        Descrtiption
+                    </th>
+                    <th scope="col" class="px-6 py-3 font-medium">
+                        Statut
+                    </th>
+                    <th scope="col" class="px-6 py-3 font-medium">
+                        <span class="sr-only">Modifier</span>
+                    </th>
+                    <th scope="col" class="px-6 py-3 font-medium">
+                        <span class="sr-only">Supprimer</span>
+                    </th>
                 </tr>
             </thead>
-
             <tbody>
                 <?php foreach($tasks as $task): ?>
-                <tr>
-                    <td>
-                        <?=  $task->getTitle(); ?>
-                    </td>
-                    <td>
+                <tr class="bg-neutral-primary-soft border-b border-default hover:bg-neutral-secondary-medium">
+                    <th scope="row" class="px-6 py-4 font-medium text-heading whitespace-nowrap">
+                        <?= $task->getTitle(); ?>
+                    </th>
+                    <td class="px-6 py-4">
                         <?=  $task->getDescription(); ?>
                     </td>
-                    <td>
-                        <?=  $task->getStatus();  ?>
+                    <td class="px-6 py-4">
+                        <?=  $task->getStatus(); ?>
                     </td>
-                    <td>
-                        <form action="/task" method="put">
-                            <input type="hidden" name="id" value="<?= $task->getId() ?>">
-                            <button class="btn btn-primary">Modifier</button>
-                        </form>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" class="font-medium text-fg-brand hover:underline">Modifier</a>
                     </td>
-                    <td>
-                        <form action="/task" method="delete">
-                            <input type="hidden" name="id" value="<?= $task->getId(); ?>">
-                            <button class="btn btn-danger">Supprimer</button>
-                        </form>
+                    <td class="px-6 py-4 text-right">
+                        <a href="#" class="font-medium text-fg-brand hover:underline">Supprimer</a>
                     </td>
-
-                    <?php endforeach ?>
+                </tr>
+                <?php endforeach ?>
             </tbody>
-
         </table>
+
+
         <?php endif ?>
 
     </div>

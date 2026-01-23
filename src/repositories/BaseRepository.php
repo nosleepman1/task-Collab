@@ -90,6 +90,7 @@ use PDOException;
                 mkdir(dirname($logFile), 0755, true);
             }
             $message = date('Y-m-d H:i:s') . "<br> Erreur PDO : " . $e->getMessage(). PHP_EOL;
+            file_put_contents($logFile, $message, FILE_APPEND);
         }
         
 

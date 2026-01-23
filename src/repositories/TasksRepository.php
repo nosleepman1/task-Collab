@@ -10,13 +10,9 @@ use PDOException;
 
     class TasksRepository extends BaseRepository{
 
-        private $db;   
+        protected string $tableName = 'tasks';
 
-        public function __construct()
-        {
-            $conn = Database::getInstance();
-            $this->db = $conn->getConnection();
-        }
+
 
         public function hydrate(array $data) : Task {
             $task = new Task();
@@ -25,8 +21,8 @@ use PDOException;
             $task->setDescription($data['description']);
             $task->setStatus($data['status']);
             $task->setUserId($data['user_id']);
-            $task->setCreatedAt(DateTime::createFromFormat('Y-m-d h:i:s', $data['createdAt']));
-            $task->setUpdatedAt(DateTime::createFromFormat('Y-m-d h:i:s', $data['updatedAt']));
+            $task->setCreatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['createdAt']));
+            $task->setUpdatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['updatedAt']));
             return $task;
         }
 
@@ -36,8 +32,8 @@ use PDOException;
 
             if(!$task->getId()) {
                 try{
-                    $sql = "INSERT INTO tasks (title, description, status, user_id, createdAt, updatedAt) VALUES (:title, :description, :status, :user_id, NOW(), NOW())";
-                    $stmt = $this->db->prepare($sql);
+                    $sql = "INSERT INTO {$this->tableName} (title, description, status,  createdAt, updatedAt, user_id) VALUES (:title, :description, :status, NOW(), NOW(), :user_id)";
+                    $stmt = $this->pdo->prepare($sql);
                     $result = $stmt->execute([
                         'title' => $task->getTitle(),
                         'description' => $task->getDescription(),
@@ -52,20 +48,22 @@ use PDOException;
 
                 } catch (PDOException $e){
                     $this->logError($e);
+                    return null;
                 }
             } else {
                 try {
-                    $sql = "UPDATE tasks SET title = :title, description = :description, status = :status, updatedAt = NOW() WHERE id = :id";
-                    $stmt = $this->db->prepare($sql);   
+                    $sql = "UPDATE {$this->tableName} SET title = :title, description = :description, status = :status, updatedAt = NOW() WHERE id = :id ";
+                    $stmt = $this->pdo->prepare($sql);   
                     $stmt->execute([
                         'title' => $task->getTitle(),
                         'description' => $task->getDescription(),
                         'status' => $task->getStatus(),
                         'id' => $task->getId()
                     ]);
-                    
+                    return $task;
                 } catch (PDOException $e) {
                     $this->logError($e);
+                    return null;
                 }
             }
                 
@@ -75,8 +73,8 @@ use PDOException;
         public function myTasks(int $user_id) {
             try {
 
-                $sql = "SELECT * FROM tasks WHERE user_id = :user_id";
-                $stmt = $this->db->prepare($sql);
+                $sql = "SELECT * FROM {$this->tableName} WHERE user_id = :user_id ORDER BY createdAt DESC";
+                $stmt = $this->pdo->prepare($sql);
                 $stmt->execute(['user_id' => $user_id]);
                 $result = $stmt->fetchAll();
                 return $this->hydrateMultiple($result);

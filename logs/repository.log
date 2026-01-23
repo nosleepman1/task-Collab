@@ -1,0 +1,2 @@
+2026-01-23 22:53:15<br> Erreur PDO : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'field list'
+2026-01-23 22:53:25<br> Erreur PDO : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'field list'
