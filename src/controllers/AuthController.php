@@ -29,7 +29,7 @@
 
             if ($this->userRepository->findByEmail($email)) {
                 Session::flash('L\'email est déjà utilisé', 'error');
-                header('Location: /register');
+                $this->redirect('/register');
                 return;
             }
 
@@ -40,12 +40,12 @@
 
             if (!$user) {
                 Session::flash('Erreur lors de la création de l\'utilisateur', 'error');
-                header('Location: /register');
+                $this->redirect('/register');
                 return;
             }
 
-            Session::flash('Utilisateur créé avec succès', 'success');
-            header('Location: /login');
+            Session::flash('Inscription reussie veuillez vous connectez à votre nouveau compte', 'success');
+            $this->redirect('/login');
             return;
             
             
@@ -53,17 +53,23 @@
 
         public function showRegisterForm(){
             if (Auth::check()) {
-                header('Location: /');
+                $this->redirect('/');
                 return;
             }
 
-            require_once __DIR__ . '/../../views/auth/register.php';
+            $this->view('auth/register.php');
         }
 
 
         public function login(){
             if (Auth::check()) {
-                header('Location: /');
+                $this->redirect('/');
+                return;
+            }
+
+            if (!isset($_POST['email']) || !isset($_POST['password'])) {
+                Session::flash('Veuillez remplir tous les champs', 'error');
+                $this->redirect('/login');
                 return;
             }
 
@@ -72,29 +78,29 @@
 
             if (!Auth::attemp($email, $password)) {
                 Session::flash('Email ou mot de passe incorrect', 'error');
-                header('Location: /login');
+                $this->redirect('/login');
                 return;
             }
 
-            header('Location: /');
-            Session::flash("Bienvenue {} ", 'success');
+            $this->redirect('/');
+            Session::flash("Bienvenue" . Auth::user()->getFullname() , 'success');
             return;
         }
 
 
         public function showLoginForm(){
             if (Auth::check()) {
-                header('Location: /');
+                $this->redirect('/');
                 return;
             }
-
-            require_once __DIR__ . '/../../views/auth/login.php';
+            $this->view('auth/login.php');
         }
 
 
         public function logout(){
             Auth::logout();
-            header('Location: /login');
+            $this->redirect('/login');
+            Session::flash('Vous avez été déconnecté', 'success');
             return;
         }
 
