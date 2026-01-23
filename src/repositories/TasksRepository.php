@@ -1,15 +1,14 @@
 <?php 
     
-    namespace App\repositories;
+namespace App\repositories;
 
 use App\Config\Database;
 use App\models\Task;
-use App\Utils\Auth;
 use DateTime;
 use PDO;
 use PDOException;
 
-    class TasksRepository {
+    class TasksRepository extends BaseRepository{
 
         private $db;   
 
@@ -52,7 +51,7 @@ use PDOException;
                     return null;
 
                 } catch (PDOException $e){
-                    
+                    $this->logError($e);
                 }
             } else {
                 try {
@@ -66,7 +65,7 @@ use PDOException;
                     ]);
                     
                 } catch (PDOException $e) {
-                    
+                    $this->logError($e);
                 }
             }
                 
@@ -74,21 +73,16 @@ use PDOException;
 
 
         public function myTasks(int $userId) {
-
             try {
 
                 $sql = "SELECT * FROM tasks WHERE userId = :userId";
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute(['userId' => $userId]);
                 $result = $stmt->fetchAll();
-
+                return $this->hydrateMultiple($result);
                 
-
-                
-
-
-            } catch (PDOException) {
-
+            } catch (PDOException $e) {
+                $this->logError($e);
             }
         }
 

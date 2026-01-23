@@ -23,7 +23,7 @@ use PDOException;
 
             foreach($results as $result) {
                 $entities[] = $this->hydrate($result);
-            }
+        }
 
             return $entities;
         }

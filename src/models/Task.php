@@ -3,7 +3,6 @@
     use App\Models\BaseEntity;
     class Task extends BaseEntity{
        
-        private $id;
         private $title;
         private $description;
         private $status = 'pending';
@@ -63,6 +62,7 @@
                 'title' => $this->getTitle(),
                 'description' => $this->getDescription(),
                 'status' => $this->getStatus(),
+                'user_id' => $this->getUserId(),
                 'createdAt' => $this->getCreatedAt() ? $this->getCreatedAt()->format('Y-m-d H:i:s') : null,
                 'updatedAt' => $this->getUpdatedAt() ? $this->getUpdatedAt()->format('Y-m-d H:i:s') : null,
             ];
