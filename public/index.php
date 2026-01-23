@@ -14,12 +14,13 @@ require_once '../config/config.php';
 
 
 
-    require_once '../src/controllers/MainController.php';
-    require_once '../src/controllers/UserController.php';
-    require_once '../src/controllers/TaskController.php';
+    use App\Controllers\AuthController;
+    use App\Controllers\MainController;
+    use App\Controllers\TaskController;
+
     
     $controller = new MainController();
-    $UserController = new UserController();
+    $AuthController = new AuthController();
     $TaskController = new TaskController();
 
     
@@ -30,7 +31,11 @@ require_once '../config/config.php';
                 $controller->home();
                 break;
             case 'login':
-                $UserController->login();
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $AuthController->login();
+                } else {
+                    $AuthController->showLoginForm();
+                }
                 break;
             case 'register':
                 $UserController->register();

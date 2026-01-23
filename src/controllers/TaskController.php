@@ -1,12 +1,15 @@
 <?php
 
+    namespace App\Controllers;
+    use App\Controllers\BaseController;
+
     use App\models\Task;
     use App\repositories\TasksRepository;
 
     //send json
 
 
-    class TaskController {
+    class TaskController extends BaseController {
         private $taskRepo;
 
         public function __construct() {

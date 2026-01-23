@@ -9,7 +9,7 @@
         private $password;
         private ?bool $is_active = true;
         private ?string $role = 'member';
-        private string $avatar = null;
+        private ?string $avatar = null;
         
 
        public function __construct(string $nom = '', 
