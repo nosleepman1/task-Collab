@@ -11,7 +11,17 @@
 
     class TaskController extends BaseController {
 
+        private TasksRepository $taskRepository;
+
+        public function __construct()
+        {
+            $this->taskRepository = new TasksRepository();
+        }
+
+
+        public function showTasks(){
             
+        }
         
 
     }

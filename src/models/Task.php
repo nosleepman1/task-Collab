@@ -6,17 +6,42 @@
         private $id;
         private $title;
         private $description;
-        private $status;
+        private $status = 'pending';
+        private int $user_id;
 
-        public function __construct( $title, $description, $status = 'pending') {
+        public function __construct( $title = '', $description = '', $status = 'pending', $user_id = null) {
             parent::__construct();
             $this->title = $title;
             $this->description = $description;
             $this->status = $status;
+            $this->user_id = $user_id;
         }
 
-        public function getId() {
-            return $this->id;
+
+        
+        public function setUserId(int $userId) :self {
+            $this->user_id = $userId;
+            return $this;
+        }
+
+        public function getUserId() {
+            return $this->user_id;
+        }
+
+
+        public function setTitle(string $title): self {
+            $this->title = $title;
+            return $this;
+        }
+
+        public function setDescription(string $description): self {
+            $this->description = $description;
+            return $this;
+        }
+
+        public function setStatus(string $status): self {
+            $this->status = $status;
+            return $this;
         }
 
         public function getTitle() {
