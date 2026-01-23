@@ -27,7 +27,7 @@
                 return;
             }
             $tasks = $this->taskRepository->myTasks(Auth::user()->getId());
-            $this->view('tasks/index.php');
+            $this->view('tasks/tasks.php', array('tasks' => $tasks));
         }
 
         public function createTask(){
@@ -59,6 +59,39 @@
             }
 
             $this->view('tasks/create.php');
+        }
+
+        public function deleteTask(){
+            if(!Auth::check()){
+                Session::flash('Vous devez être connecté pour accéder à cette page', 'error');
+                $this->redirect('/login');
+                return;
+            }
+
+            $idTask = $_POST['id'];
+
+            $this->taskRepository->delete($idTask);
+
+            Session::flash('Tâche supprimée avec succès', 'success');
+            $this->redirect('/tasks');
+        }
+
+        public function updateTask(){
+            if(!Auth::check()){
+                Session::flash('Vous devez être connecté pour accéder à cette page', 'error');
+                $this->redirect('/login');
+                return;
+            }
+
+            $idTask = $_POST['id'];
+            $title = $_POST['title'];
+            $description = $_POST['description'];
+
+
+            $task = new Task($title, $description);
+
+            $task->setId($idTask);
+            $task = $this->taskRepository->create($task);
         }
     }
         
