@@ -32,6 +32,7 @@
         }
 
         public function setCreatedAt(DateTime $date): self  {
+            //datetime object
             $this->createdAt = $date;
             return $this;
         }

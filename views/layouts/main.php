@@ -6,54 +6,73 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>  <?= $title ?>  </title>
+    <title> <?= $title ?> </title>
 </head>
+
 <body>
 
-  
-<nav class="relative bg-gray-800/50 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10">
-  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-    <div class="flex h-16 items-center justify-between">
-      <div class="flex items center">
-        <a href="/" class="text-white font-bold text-xl">TaskCollab</a>
-        <div class="hidden md:block">
-          <div class="ml-10 flex items-baseline space-x-4">
-            <a href="/" class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'home' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Home</a>
-            <a href="/login" class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Login</a>
-            <a href="/register" class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'register' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Register</a>
-            <a href="/tasks" class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'tasks' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Tasks</a>
-          </div>
-        </div>
-      </div>
-    </div>
-</nav>
+
+    <nav
+        class="relative bg-gray-800/50 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between">
+                <div class="flex items center">
+                    <a href="/" class="text-white font-bold text-xl">TaskCollab</a>
+                    <div class="hidden md:block">
+                        <div class="ml-10 flex items-baseline space-x-4">
+                            <a href="/"
+                                class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'home' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Home</a>
+
+                            <?php 
+                use App\Utils\Auth;
+                if (Auth::check()) {
+            ?>
+                            <a href="/logout"
+                                class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'logout' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Logout</a>
+                            <a href="/tasks"
+                                class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'tasks' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Tasks</a>
+                            <a href="#" class="px-3 py-2 rounded-md text-sm font-medium">
+                                <?= Auth::user()->getFullname() ?> </a>
+                            <?php } else { ?>
+                            <a href="/login"
+                                class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Login</a>
+                            <a href="/register"
+                                class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'register' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Register</a>
+
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </nav>
 
 
-     
-    
+
+
 
 
     <script src="https://cdn.tailwindcss.com"></script>
-     <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#f5f5f5ff',
-                            100: '#f5f5f5ff',
-                            500: '#0e9ff9ff',
-                            600: '#10659bff',
-                            700: '#1e6ea1ff',
-                        },
-                        500: '#14171A',
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                colors: {
+                    primary: {
+                        50: '#f5f5f5ff',
+                        100: '#f5f5f5ff',
+                        500: '#0e9ff9ff',
+                        600: '#10659bff',
+                        700: '#1e6ea1ff',
                     },
+                    500: '#14171A',
                 },
             },
-        }
+        },
+    }
     </script>
     <style type="text/tailwindcss">
         .gradient-primary {
@@ -67,9 +86,10 @@
     </main>
 
 
-    
+
     <?php require_once __DIR__ . '/../components/footer.php'; ?>
 
 
 </body>
+
 </html>

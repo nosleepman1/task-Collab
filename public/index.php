@@ -38,7 +38,15 @@ require_once '../config/config.php';
                 }
                 break;
             case 'register':
-                $UserController->register();
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $AuthController->register();
+                } else {
+                    $AuthController->showRegisterForm();
+                }
+                break;
+
+            case 'logout':
+                $AuthController->logout();
                 break;
 
             case 'tasks':

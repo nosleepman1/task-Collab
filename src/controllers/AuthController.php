@@ -26,7 +26,6 @@
             $lastname = $_POST['lastname'];
             $email = $_POST['email'];
             $password = $_POST['password'];
-            $password_confirmation = $_POST['password_confirmation'];
 
             if ($this->userRepository->findByEmail($email)) {
                 Session::flash('L\'email est déjà utilisé', 'error');
@@ -34,7 +33,8 @@
                 return;
             }
 
-            $user = new User($firstname, $lastname, $email, $password);
+            $user = new User($firstname, $lastname, $email, );
+            $user->setPassword($password); // Hash the password
 
             $user = $this->userRepository->create($user);
 
@@ -57,7 +57,7 @@
                 return;
             }
 
-            view_path('auth/register.php');
+            require_once __DIR__ . '/../../views/auth/register.php';
         }
 
 
@@ -88,9 +88,14 @@
                 return;
             }
 
-            view_path('auth/login.php');
+            require_once __DIR__ . '/../../views/auth/login.php';
         }
 
 
+        public function logout(){
+            Auth::logout();
+            header('Location: /login');
+            return;
+        }
 
     }

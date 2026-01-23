@@ -3,7 +3,7 @@
 namespace App\repositories;
 use App\models\BaseEntity;
 use App\models\User;
-
+use DateTime;
 use PDO;
 use PDOException;
 
@@ -19,10 +19,10 @@ class UserRepository extends BaseRepository {
         $user->setLastname($data['lastname']);
         $user->setEmail($data['email']);
         $user->setPasswordHash($data['password']);
-        $user->setRole($data['role']);
-        $user->setAvatar($data['avatar']);
-        $user->setCreatedAt($data['created_at']);
-        $user->setUpdatedAt($data['updated_at']);
+        //$user->setRole($data['role']);
+        //$user->setAvatar($data['avatar']);
+        $user->setCreatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['createdAt']));
+        $user->setUpdatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['updatedAt']));
         return $user;
 
     }
@@ -48,10 +48,10 @@ class UserRepository extends BaseRepository {
     public function create(User $user) {
 
         if (!$user->getId()) {
-            $sql  = "INSERT INTO {$this->tableName} (firstname, lastname, email, password) VALUES (:firstname, :lastname, :email, :password)";
+            $sql  = "INSERT INTO {$this->tableName} (firstname, lastname, email, password, createdAt, updatedAt) VALUES (:firstname, :lastname, :email, :password, NOW(), NOW())";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
-                'firstname' => $user->getFirsname(),
+                'firstname' => $user->getFirstname(),
                 'lastname' => $user->getLastname(),
                 'email' => $user->getEmail(),
                 'password' => $user->getPassword()
@@ -61,7 +61,7 @@ class UserRepository extends BaseRepository {
             $sql = "UPDATE {$this->tableName} SET firstname = :firstname, lastname = :lastname, email = :email, password = :password WHERE id = :id";
             $stmt = $this->pdo->prepare($sql);
             $stmt->execute([
-                'firstname' => $user->getFirsname(),
+                'firstname' => $user->getFirstname(),
                 'lastname' => $user->getLastname(),
                 'email' => $user->getEmail(),
                 'password' => $user->getPassword(),

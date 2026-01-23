@@ -5,28 +5,25 @@
     class User extends BaseEntity {
         private string $firstname;
         private string $lastname;
-        private $email;
-        private $password;
+        private string $email;
+        private string $password;
         private ?bool $is_active = true;
         private ?string $role = 'member';
         private ?string $avatar = null;
         
 
-       public function __construct(string $nom = '', 
-        string $prenom = '', 
-        string $email = '',
-        string $password = '') {
+       public function __construct(string $firstname = '', string $lastname = '', string $email = '', string $password = '') {
             parent::__construct();
-            $this->lastname = $nom;
-            $this->firstname = $prenom;
+            $this->lastname = $lastname;
+            $this->firstname = $firstname;
             $this->email = $email;
-            $this->password = $password;
+            $this->password = $password; // Hash the password upon setting
         }
 
         
 
 
-        public function getFirsname() {
+        public function getFirstname() {
             return $this->firstname;
         }
 
@@ -122,7 +119,7 @@
                 'createdAt' => $this->getCreatedAt() ? $this->getCreatedAt()->format('Y-m-d H:i:s') : null,
                 'updatedAt' => $this->getUpdatedAt() ? $this->getUpdatedAt()->format('Y-m-d H:i:s') : null,
 
-                'firstname' => $this->getFirsname(),
+                'firstname' => $this->getFirstname(),
                 'lastname' => $this->getLastname(),
                 'email' => $this->getEmail(),
                 'password' => $this->getPassword(),

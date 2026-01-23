@@ -12,8 +12,8 @@ define('APP_NAME', $_ENV['APP_NAME'] ?? 'TaskCollab');
 define('APP_ENV', $_ENV['APP_ENV'] ?? 'development');
 define('APP_URL', $_ENV['APP_URL'] ?? 'http://l2_gl_app.test/public');
 define('ROOT_PATH', dirname(__DIR__));
-define('PUBLIC_PATH', ROOT_PATH . '/public');
 define('VIEW_PATH', ROOT_PATH . '/views');
+define('PUBLIC_PATH', ROOT_PATH . '/public');
 
 # constantes pour variables environnmement
 define('DB_HOST', $_ENV['DB_HOST'] ?? 'localhost');

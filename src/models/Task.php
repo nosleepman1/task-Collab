@@ -8,8 +8,8 @@
         private $description;
         private $status;
 
-        public function __construct( $title, $description, $status = 'pending', $id = null) {
-            $this->id = $id;
+        public function __construct( $title, $description, $status = 'pending') {
+            parent::__construct();
             $this->title = $title;
             $this->description = $description;
             $this->status = $status;
@@ -35,9 +35,11 @@
         {
             return [
                 'id' => $this->getId(),
+                'title' => $this->getTitle(),
+                'description' => $this->getDescription(),
+                'status' => $this->getStatus(),
                 'createdAt' => $this->getCreatedAt() ? $this->getCreatedAt()->format('Y-m-d H:i:s') : null,
                 'updatedAt' => $this->getUpdatedAt() ? $this->getUpdatedAt()->format('Y-m-d H:i:s') : null,
-
             ];
         }
     }
