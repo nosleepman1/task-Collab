@@ -51,7 +51,8 @@ require_once '../config/config.php';
 
             case 'tasks':     
                 $TaskController->showTasks();
-                break;    
+                break; 
+                   
             case 'create':
                 if($_SERVER['REQUEST_METHOD'] === 'POST'){
                     $TaskController->createTask();

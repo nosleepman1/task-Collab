@@ -29,6 +29,8 @@
 
                             <?php 
                 use App\Utils\Auth;
+                                                                                use App\Utils\Session;
+
                 if (Auth::check()) {
             ?>
                             <a href="/logout"
@@ -81,6 +83,43 @@
     </style>
 
 
+    <?php
+        $erreurs = Session::getFlash('error');
+        $success = Session::getFlash('success');
+ 
+
+    if(isset($erreurs)) { ?>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <strong class="font-bold">Erreur:</strong>
+        <span class="block sm:inline"> <?= $erreurs ?> </span>
+        <a href="#" class="
+                    float-right
+                    text-red-600
+                    hover:text-red-900
+                    absolute
+                    right-2
+                    top-2
+                    text-2xl">&times;</a>
+    </div>
+    <?php   } 
+ 
+
+    if(isset($success)) {
+        ?>
+    <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert"></div>
+    <strong class="font-bold">Succès:</strong>
+    <span class="block sm:inline"> <?= $success ?> </span>
+    <a href="#" class="
+                    float-right
+                    text-green-600
+                    hover:text-green-900
+                    absolute
+                    right-2
+                    top-2
+                    text-2xl">&times;</a>
+    </div>
+    <?php     }
+     ?>
     <main class="flex-1">
         <?= $content; ?>
     </main>

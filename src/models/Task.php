@@ -7,13 +7,14 @@
         private $description;
         private $status = 'pending';
         private int $user_id;
+        
 
-        public function __construct( $title = '', $description = '', $status = 'pending', $user_id = null) {
+
+        public function __construct( $title = '', $description = '', $status = 'pending') {
             parent::__construct();
             $this->title = $title;
             $this->description = $description;
             $this->status = $status;
-            $this->user_id = $user_id;
         }
 
 

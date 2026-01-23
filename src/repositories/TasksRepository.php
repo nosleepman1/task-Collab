@@ -36,7 +36,7 @@ use PDOException;
 
             if(!$task->getId()) {
                 try{
-                    $sql = "INSERT INTO tasks (title, description, status, user_id, createdAt, updatedAt) VALUES (:title, :description, :status, :user_id, NOW(), NOW()";
+                    $sql = "INSERT INTO tasks (title, description, status, user_id, createdAt, updatedAt) VALUES (:title, :description, :status, :user_id, NOW(), NOW())";
                     $stmt = $this->db->prepare($sql);
                     $result = $stmt->execute([
                         'title' => $task->getTitle(),
@@ -72,12 +72,12 @@ use PDOException;
         }
 
 
-        public function myTasks(int $userId) {
+        public function myTasks(int $user_id) {
             try {
 
-                $sql = "SELECT * FROM tasks WHERE userId = :userId";
+                $sql = "SELECT * FROM tasks WHERE user_id = :user_id";
                 $stmt = $this->db->prepare($sql);
-                $stmt->execute(['userId' => $userId]);
+                $stmt->execute(['user_id' => $user_id]);
                 $result = $stmt->fetchAll();
                 return $this->hydrateMultiple($result);
                 
