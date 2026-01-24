@@ -1,12 +1,16 @@
 <?php 
     namespace App\models;
     use App\Models\BaseEntity;
+    use DateTime;
+
     class Task extends BaseEntity{
        
         private $title;
         private $description;
         private $status = 'pending';
         private int $user_id;
+        private int $project_id;
+        private ?DateTime $deadline = null;
         
 
 
@@ -19,15 +23,18 @@
 
 
         
-        public function setUserId(int $userId) :self {
+       
+        /**
+         * setters
+         * @return self
+         * pour chainage
+         */
+
+
+         public function setUserId(int $userId) :self {
             $this->user_id = $userId;
             return $this;
         }
-
-        public function getUserId() {
-            return $this->user_id;
-        }
-
 
         public function setTitle(string $title): self {
             $this->title = $title;
@@ -44,6 +51,28 @@
             return $this;
         }
 
+        public function setDeadline(DateTime $deadline): self {
+            $this->deadline = $deadline;
+            return $this;
+        }
+
+        public function setProjectId(int $projectId): self {
+            $this->project_id = $projectId;
+            return $this;
+        }
+
+
+
+        /**
+         * getters
+         */
+
+
+        public function getUserId() {
+            return $this->user_id;
+        }
+
+
         public function getTitle() {
             return $this->title;
         }
@@ -54,6 +83,14 @@
 
         public function getStatus() {
             return $this->status;
+        }
+
+        public function getDeadline() {
+            return $this->deadline;
+        }
+    
+        public function getProjectId() {
+            return $this->project_id;
         }
 
         public function toArray(): array
