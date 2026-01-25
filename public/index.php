@@ -49,18 +49,18 @@ require_once '../config/config.php';
                 $AuthController->logout();
                 break;
 
-            case 'tasks':     
-                $TaskController->showTasks();
-                break; 
-                   
-            case 'create':
-                if($_SERVER['REQUEST_METHOD'] === 'POST'){
-                    $TaskController->createTask();
-                } else {
-                    $TaskController->showTaskForm();
-                }
-            
+            case 'tasks':
+                $TaskController->index();
+                break;
 
+            case 'tasks/create':
+                $TaskController->showCreateTaskForm();
+                break;
+
+            case 'tasks/assign':
+                $TaskController->assignTask();
+                break;
+       
             default:
                 $controller->notFound();
                 break;
