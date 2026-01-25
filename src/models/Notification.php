@@ -1,17 +1,20 @@
 <?php 
 
     namespace App\models;
+    use App\Models\User;
+    
+
 
     class Notification extends BaseEntity {
 
-        private int $user_id;
+        private  User $user;
         private string $message;
         private bool $is_read = false;
 
 
-        public function __construct( $user_id = '', $message = '', $is_read = false) {
+        public function __construct( User $user, string $message, bool $is_read = false) {
             parent::__construct();
-            $this->user_id = $user_id;
+            $this->user = $user;
             $this->message = $message;
             $this->is_read = $is_read;
         }
@@ -20,8 +23,8 @@
          * GETTERS
          */
 
-        public function getUserId() {
-            return $this->user_id;
+        public function getUser() {
+            return $this->user; 
         }
 
         public function getMessage() {
@@ -36,8 +39,8 @@
          * SETTERS
          */
 
-        public function setUserId(int $user_id): self {
-            $this->user_id = $user_id;
+        public function setUser(User $user): self {
+            $this->user = $user;
             return $this;
         }
 
@@ -54,7 +57,7 @@
         public function toArray(): array
         {
             return [
-                'user_id' => $this->user_id,
+                'user_id' => $this->user->getId(),
                 'message' => $this->message,
                 'is_read' => $this->is_read,
                 'createdAt' => $this->getCreatedAt() ? $this->getCreatedAt()->format('Y-m-d H:i:s') : null,

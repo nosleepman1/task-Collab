@@ -4,42 +4,49 @@
 
     class ProjectUser extends BaseEntity {
     
-         private int $user_id;
-         private int $project_id;
-         private string $role;
+         private User $user;
+         private Project $project;
+        private string $role = 'member'; // 'owner' or 'member'
 
-        public function __construct($user_id = '', $project_id = '', $role = '')
+        public function __construct(User $user, Project $project)
         {
             parent::__construct();
-            $this->user_id = $user_id;
-            $this->project_id = $project_id;
-            $this->role = $role;
+            $this->user = $user;
+            $this->project = $project;
         }
+        
 
         /**
          * GETTERS
          */
 
-        public function getUserId() {
-            return $this->user_id;
-        }
-        public function getProjectId() {
-            return $this->project_id;
+        public function getUser() {
+            return $this->user;
         }
 
-        public function getRole() {
-            return $this->role;
+        public function getProject() {
+            return $this->project;
         }
+
+        public function getUserId() {
+            return $this->user->getId();
+        }
+
+        public function getProjectId() {
+            return $this->project->getId();
+        }
+
 
         /**
          * SETTERS
          */
-        public function setUserId(int $user_id): self {
-            $this->user_id = $user_id;
+        public function setUser(User $user): self {
+            $this->user = $user;
             return $this;
         }
-        public function setProjectId(int $project_id): self {
-            $this->project_id = $project_id;
+
+        public function setProject(Project $project): self {
+            $this->project = $project;
             return $this;
         }
 
@@ -49,12 +56,11 @@
             return $this;
         }
 
-        
         public function toArray(): array
         {
             return [
-                'user_id' => $this->user_id,
-                'project_id' => $this->project_id,
+                'user_id' => $this->user->getId(),
+                'project_id' => $this->project->getId(),
                 'role' => $this->role,
                 'createdAt' => $this->getCreatedAt() ? $this->getCreatedAt()->format('Y-m-d H:i:s') : null,
                 'updatedAt' => $this->getUpdatedAt() ? $this->getUpdatedAt()->format('Y-m-d H:i:s') : null

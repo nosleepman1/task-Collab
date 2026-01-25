@@ -5,8 +5,6 @@
     use PDOException;
     use DateTime;
     class TaskProjectRepository extends BaseRepository {
-
-
         protected string $tableName = 'tasks_projects';
 
         public function hydrate(array $data) : TaskProject {

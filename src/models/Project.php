@@ -7,7 +7,7 @@
 
         private string $title;
         private string $description;
-        private int $user_id;
+        private User $owner;
         
 
 
@@ -26,17 +26,17 @@
         public function getDescription() {
             return $this->description;
         }
+     
 
-        
-
-        public function getUserId() {
-            return $this->user_id;
+        public function getOwner() {
+            return $this->owner;
         }
 
 
-        public function setTitle(string $title): self {
-            $this->title = $title;
-            return $this;   
+        
+        public function setOwner(User $owner): self {
+            $this->owner = $owner;
+            return $this;
         }
 
 
@@ -44,9 +44,8 @@
             $this->description = $description;
             return $this;
         }
-
-        public function setUserId(int $userId): self {
-            $this->user_id = $userId;
+        public function setTitle(string $title): self {
+            $this->title = $title;
             return $this;
         }
         
@@ -57,7 +56,7 @@
                 'id' => $this->getId(),
                 'title' => $this->getTitle(),
                 'description' => $this->getDescription(),
-                'user_id' => $this->getUserId(),
+                'owner' => $this->getOwner()->getId(),
                 'createdAt' => $this->getCreatedAt() ? $this->getCreatedAt()->format('Y-m-d H:i:s') : null,
                 'updatedAt' => $this->getUpdatedAt() ? $this->getUpdatedAt()->format('Y-m-d H:i:s') : null
             ];
