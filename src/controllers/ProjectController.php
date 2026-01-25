@@ -86,6 +86,12 @@
                 return;
             }
 
+            if(Auth::user()->getRole() != 'owner') {
+                Session::flash('Vous n\'avez pas les droits pour créer un projet', 'error');
+                $this->redirect('/projects');
+                return;
+            }
+
             $this->view('projects/create.php');
         }
         
