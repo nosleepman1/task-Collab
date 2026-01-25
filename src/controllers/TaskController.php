@@ -20,88 +20,57 @@
         }
 
 
-        public function showTasks(){
-            if(!Auth::check()){
-                Session::flash('Vous devez être connecté pour accéder à cette page', 'error');
-                $this->redirect('/login'); 
+       public function index() {
+            if (!Auth::check()) {
+                $this->redirect('/login');
                 return;
             }
+
             $tasks = $this->taskRepository->myTasks(Auth::user()->getId());
-            $this->view('tasks/tasks.php', array('tasks' => $tasks));
-        }
+            $this->view('tasks/index.php', $tasks);
+       }
 
-        public function createTask(){
-            
-        if(!Auth::check()){
-                Session::flash('Vous devez être connecté pour accéder à cette page', 'error');
+
+       public function create() {
+            if (!Auth::check()) {
                 $this->redirect('/login');
                 return;
             }
 
             $title = $_POST['title'];
             $description = $_POST['description'];
+            $status = $_POST['status'];
+            $priority = $_POST['priority'];
+            $deadline = $_POST['deadline'];
 
-            if (empty($title)) {
-                Session::flash('Titre requis', 'error');
-                $this->redirect('/create');
-            }
-
-            $task = new Task($title, $description);
-            $task->setUserId(Auth::user()->getId());
-            $task = $this->taskRepository->create($task);
-
-            if ($task) {
-                Session::flash('Tâche créée avec succès', 'success');
+            if (!isset($title) || !isset($description) || !isset($status) || !isset($priority)) {
+                Session::flash('Veuillez remplir tous les champs', 'error');
                 $this->redirect('/tasks');
-            } else {
-                Session::flash('Creation de tache echouée', 'error');
-                $this->redirect('/create');
-            }
-        }
-
-        public function showTaskForm(){
-
-            if(!Auth::check()){
-                Session::flash('Vous devez être connecté pour accéder à cette page', 'error');
-                $this->redirect('/login');
                 return;
             }
 
-            $this->view('tasks/create.php');
-        }
+            $task = new Task($title, $description, $status, $priority, $deadline);
+            $task->setUserId(Auth::user()->getId());
 
-        public function deleteTask(){
-            if(!Auth::check()){
-                Session::flash('Vous devez être connecté pour accéder à cette page', 'error');
-                $this->redirect('/login');
-                return;
-            }
-
-            $idTask = $_POST['id'];
-
-            $this->taskRepository->delete($idTask);
-
-            Session::flash('Tâche supprimée avec succès', 'success');
-            $this->redirect('/tasks');
-        }
-
-        public function updateTask(){
-            if(!Auth::check()){
-                Session::flash('Vous devez être connecté pour accéder à cette page', 'error');
-                $this->redirect('/login');
-                return;
-            }
-
-            $idTask = $_POST['id'];
-            $title = $_POST['title'];
-            $description = $_POST['description'];
-
-
-            $task = new Task($title, $description);
-
-            $task->setId($idTask);
             $task = $this->taskRepository->create($task);
-        }
+
+            if(!$task) {
+                Session::flash('Erreur lors de la création de la tâche', 'error');
+                $this->redirect('/tasks');
+                return;
+            }
+
+            Session::flash('Tâche créée avec succès', 'success');
+            $this->redirect('/tasks');
+            return;
+       }
+
+
+
+
+
+
+
     }
         
 

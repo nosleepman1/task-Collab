@@ -93,5 +93,20 @@ use PDOException;
                 $this->logError($e);
             }
         }  
+
+
+        public function ProjectTasks(int $project_id) {
+            try {
+
+                $sql = "SELECT * FROM {$this->tableName} WHERE project_id = :project_id ORDER BY createdAt DESC";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute(['project_id']);
+                $result = $stmt->fetchAll();
+                return $this->hydrateMultiple($result);
+                
+            } catch (PDOException $e) {
+                $this->logError($e);
+            }
+        }  
         
     }

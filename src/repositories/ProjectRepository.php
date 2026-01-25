@@ -6,6 +6,8 @@ use App\Models\Project;
 use App\repositories\BaseRepository;
 use DateTime;
 use App\Utils\Auth;
+use PDO;
+use PDOException;
 
 
     class ProjectRepository extends BaseRepository {
@@ -17,7 +19,7 @@ use App\Utils\Auth;
         {
             $project = new Project($data['title'], $data['description']);
             $project->setId((int)$data['id']);
-            $project->setUserId((int)$data['user_id'])
+            $project->setOwner(Auth::user())
                 ->setTitle($data['title'])
                 ->setDescription($data['description'])
                 ->setCreatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['createdAt']))
@@ -32,13 +34,13 @@ use App\Utils\Auth;
 
                 try {
 
-                    $sql = "INSERT INTO {$this->tableName} (title, description, user_id, createdAt, updatedAt) VALUES (:title, :description, :user_id, NOW(), NOW())";
+                    $sql = "INSERT INTO {$this->tableName} (title, description, owner, createdAt, updatedAt) VALUES (:title, :description, :owner, NOW(), NOW())";
                     $stmt = $this->pdo->prepare($sql);
                     $result = $stmt->execute(
                         [
                         'title' => $project->getTitle(),
                         'description' => $project->getDescription(),
-                        'user_id' => Auth::user()->getId()
+                        'owner' => Auth::user()->getId()
                     ]);
 
                     if ($result) {
@@ -71,6 +73,20 @@ use App\Utils\Auth;
                     $this->logError($e); 
                 }
 
+            }
+        }
+
+
+        public function myProjects() {
+
+            try {
+                $sql = "SELECT * FROM {$this->tableName} WHERE owner = :owner";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute(['owner' => Auth::user()->getId()]);
+                $results = $stmt->fetchAll();
+                return $this->hydrateMultiple($results);
+            } catch (PDOException $e) {
+                $this->logError($e);
             }
         }
     }   
