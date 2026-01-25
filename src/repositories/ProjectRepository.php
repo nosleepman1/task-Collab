@@ -1,5 +1,7 @@
 <?php 
 
+namespace App\repositories;
+
 use App\Models\Project;
 use App\repositories\BaseRepository;
 use DateTime;

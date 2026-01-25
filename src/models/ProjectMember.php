@@ -36,6 +36,10 @@
             return $this->project->getId();
         }
 
+        public function getRole() {
+            return $this->role;
+        }
+
 
         /**
          * SETTERS
