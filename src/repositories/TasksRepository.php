@@ -32,7 +32,7 @@ use PDOException;
 
 
 
-        public function create(Task $task) {
+        public function create(Task $task): Task | null{
 
             if(!$task->getId()) {
                 try{

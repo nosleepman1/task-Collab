@@ -77,4 +77,43 @@ use PDOException;
                 $this->logError($e);
             }
         }
+
+        public function findNotification(int $id) {
+            try {
+                $sql = "SELECT * FROM {$this->tableName} WHERE id = :id AND user_id = :user_id";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute(['id' => $id, 'user_id' => Auth::user()->getId()]);
+                $result = $stmt->fetch();
+                return $this->hydrate($result);
+            } catch (PDOException $e) {
+                $this->logError($e);
+            }
+        }
+    
+
+
+        public function markAsRead(int $id) {
+            try {
+                $sql = "UPDATE {$this->tableName} SET is_read = 1 WHERE id = :id AND user_id = :user_id";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute(['id' => $id, 'user_id' => Auth::user()->getId()]);
+                return true;
+            } catch (PDOException $e) {
+                $this->logError($e);
+                return false;
+            }
+        }
+
+        public function touch(Notification $notification){
+            try {
+                $sql = "UPDATE {$this->tableName} SET is_read = 0 WHERE id = :id AND user_id = :user_id";
+                $stmt = $this->pdo->prepare($sql);
+                $stmt->execute(['id' => $notification->getId(), 'user_id' => $notification->getUser()->getId()]);
+                return true;
+            } catch (PDOException $e) {
+                $this->logError($e);
+                return false;
+            }
+        }
+                
     }
