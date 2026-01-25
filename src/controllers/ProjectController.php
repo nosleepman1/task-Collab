@@ -81,6 +81,19 @@
 
         }
 
+        public function showCreateForm(){
+            if (!Auth::check()) {
+                $this->redirect('/login');
+                return;
+            }
+
+            $this->view('projects/create.php');
+        }
+
+        
+
+
+
         
         
     }

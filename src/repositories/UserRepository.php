@@ -71,6 +71,17 @@ class UserRepository extends BaseRepository {
         }
     }
 
-    
-    
+
+
+    public function showAvalaibleMembers() {
+        try {
+            $sql = "SELECT * FROM {$this->tableName} WHERE role = 'member'";
+            $stmt = $this->pdo->prepare($sql);
+            $result = $stmt->fetchAll();
+            return $this->hydrateMultiple($result); 
+        } catch (PDOException $e) {
+            $this->logError($e);
+        }
+    }
+ 
 }
