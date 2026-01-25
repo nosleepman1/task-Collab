@@ -17,12 +17,16 @@ use PDOException;
         public function hydrate(array $data) : Task {
             $task = new Task();
             $task->setId((int)$data['id']);
-            $task->setTitle($data['title']);
-            $task->setDescription($data['description']);
-            $task->setStatus($data['status']);
-            $task->setUserId($data['user_id']);
-            $task->setCreatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['createdAt']));
-            $task->setUpdatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['updatedAt']));
+            $task->setProjectId((int)$data['project_id'])
+                ->setUserId((int)$data['user_id'])
+                ->setTitle($data['title'])
+                ->setDescription($data['description'])
+                ->setStatus($data['status'])
+                ->setPriority($data['priority'])
+                ->setDeadline($data['deadline'] ? new DateTime($data['deadline']) : null)
+                ->setCreatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['createdAt']))
+                ->setUpdatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['updatedAt']));
+                 
             return $task;
         }
 
@@ -32,13 +36,16 @@ use PDOException;
 
             if(!$task->getId()) {
                 try{
-                    $sql = "INSERT INTO {$this->tableName} (title, description, status,  createdAt, updatedAt, user_id) VALUES (:title, :description, :status, NOW(), NOW(), :user_id)";
+                    $sql = "INSERT INTO {$this->tableName} (title, description, status, createdAt, updatedAt, user_id, project_id, deadline, priority) VALUES (:title, :description, :status, NOW(), NOW(), :user_id, :project_id, :deadline, :priority)";
                     $stmt = $this->pdo->prepare($sql);
                     $result = $stmt->execute([
                         'title' => $task->getTitle(),
                         'description' => $task->getDescription(),
                         'status' => $task->getStatus(),
                         'user_id' => $task->getUserId(),
+                        'project_id' => $task->getProjectId(),
+                        'deadline' => $task->getDeadline(),
+                        'priority' => $task->getPriority()
                     ]);
 
                     if($result){
@@ -52,12 +59,15 @@ use PDOException;
                 }
             } else {
                 try {
-                    $sql = "UPDATE {$this->tableName} SET title = :title, description = :description, status = :status, updatedAt = NOW() WHERE id = :id ";
+                    $sql = "UPDATE {$this->tableName} SET title = :title, description = :description, status = :status, updatedAt = NOW(), project_id = :project_id, deadline = :deadline, priority = :priority WHERE id = :id ";
                     $stmt = $this->pdo->prepare($sql);   
                     $stmt->execute([
                         'title' => $task->getTitle(),
                         'description' => $task->getDescription(),
                         'status' => $task->getStatus(),
+                        'project_id' => $task->getProjectId(),
+                        'deadline' => $task->getDeadline(),
+                        'priority' => $task->getPriority(),
                         'id' => $task->getId()
                     ]);
                     return $task;
@@ -82,8 +92,6 @@ use PDOException;
             } catch (PDOException $e) {
                 $this->logError($e);
             }
-        }
-
-        
+        }  
         
     }

@@ -14,11 +14,12 @@ use App\Utils\Auth;
         public function hydrate(array $data) : Project
         {
             $project = new Project($data['title'], $data['description']);
-            
             $project->setId((int)$data['id']);
-            $project->setCreatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['createdAt']));
-            $project->setUpdatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['updatedAt']));
-            $project->setUserId($data['user_id']);
+            $project->setUserId((int)$data['user_id'])
+                ->setTitle($data['title'])
+                ->setDescription($data['description'])
+                ->setCreatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['createdAt']))
+                ->setUpdatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['updatedAt']));
             
             return $project;
         }
