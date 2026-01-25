@@ -5,20 +5,24 @@
 
     class Task extends BaseEntity{
        
+        private int $project_id;
+        private int $user_id;
         private $title;
         private $description;
         private $status = 'pending';
-        private int $user_id;
-        private int $project_id;
+        private string $priority = 'medium';
+       
         private ?DateTime $deadline = null;
         
 
 
-        public function __construct( $title = '', $description = '', $status = 'pending') {
+        public function __construct( $title = '', $description = '', $status = 'pending', $priority = 'medium',  $deadline = null) {
             parent::__construct();
             $this->title = $title;
             $this->description = $description;
             $this->status = $status;
+            $this->priority = $priority;
+            $this->deadline = $deadline;
         }
 
 
@@ -30,11 +34,16 @@
          * pour chainage
          */
 
-
-         public function setUserId(int $userId) :self {
+        public function setUserId(int $userId): self {
             $this->user_id = $userId;
             return $this;
         }
+
+        public function setPriority(string $priority): self {
+            $this->priority = $priority;
+            return $this;
+        }
+
 
         public function setTitle(string $title): self {
             $this->title = $title;
@@ -67,9 +76,13 @@
          * getters
          */
 
-
         public function getUserId() {
             return $this->user_id;
+        }
+
+
+        public function getPriority() {
+            return $this->priority;
         }
 
 
@@ -97,10 +110,13 @@
         {
             return [
                 'id' => $this->getId(),
+                'project_id' => $this->getProjectId(),
                 'title' => $this->getTitle(),
                 'description' => $this->getDescription(),
                 'status' => $this->getStatus(),
-                'user_id' => $this->getUserId(),
+                'priority' => $this->getPriority(),
+                'deadline' => $this->getDeadline() ? $this->getDeadline()->format('Y-m-d H:i:s') : null,
+                
                 'createdAt' => $this->getCreatedAt() ? $this->getCreatedAt()->format('Y-m-d H:i:s') : null,
                 'updatedAt' => $this->getUpdatedAt() ? $this->getUpdatedAt()->format('Y-m-d H:i:s') : null,
             ];
