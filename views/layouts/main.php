@@ -28,11 +28,11 @@
                                 class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'home' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Home</a>
 
                             <?php 
-                use App\Utils\Auth;
-                                                                                use App\Utils\Session;
+                                use App\Utils\Auth;
+                                use App\Utils\Session;
 
-                if (Auth::check()) {
-            ?>
+                                if (Auth::check()) {
+                                                             ?>
                             <a href="/logout"
                                 class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'logout' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Logout</a>
                             <a href="/tasks"
@@ -45,7 +45,13 @@
                             <a href="/register"
                                 class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'register' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Register</a>
 
-                            <?php } ?>
+                            <?php } 
+                                if(Auth::check() && Auth::user()->getRole() === 'owner') :
+                            ?>
+
+                            <a href="/projects"
+                                class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'projects' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Projects</a>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
