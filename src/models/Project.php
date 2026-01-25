@@ -1,5 +1,5 @@
 <?php 
-
+    namespace App\models;
     use App\Models\BaseEntity;
 
 
