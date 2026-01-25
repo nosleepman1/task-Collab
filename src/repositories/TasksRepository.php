@@ -2,10 +2,8 @@
     
 namespace App\repositories;
 
-use App\Config\Database;
 use App\models\Task;
 use DateTime;
-use PDO;
 use PDOException;
 
     class TasksRepository extends BaseRepository{

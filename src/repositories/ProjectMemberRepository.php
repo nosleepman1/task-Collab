@@ -1,13 +1,11 @@
 <?php
 
-namespace App\repositories;
-use App\models\BaseEntity;
-use App\models\ProjectUser;
-use App\repositories\ProjectRepository;
-use App\models\User;
-use DateTime;
-use PDO;
-use PDOException;
+    namespace App\repositories;
+    use App\models\ProjectUser;
+    use App\repositories\ProjectRepository;
+    use DateTime;
+    use PDO;
+    use PDOException;
 
     class ProjectMemberRepository extends BaseRepository {
 

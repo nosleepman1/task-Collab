@@ -1,10 +1,8 @@
 <?php
 
 namespace App\repositories;
-use App\models\BaseEntity;
 use App\models\User;
 use DateTime;
-use PDO;
 use PDOException;
 
 class UserRepository extends BaseRepository {

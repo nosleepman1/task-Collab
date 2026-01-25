@@ -6,7 +6,6 @@ use App\Models\Project;
 use App\repositories\BaseRepository;
 use DateTime;
 use App\Utils\Auth;
-use PDO;
 use PDOException;
 
 

@@ -7,8 +7,6 @@
     use App\models\Task;
     use App\repositories\TasksRepository;
     use App\repositories\ProjectRepository;
-    use App\models\Project;
-    use App\Models\User;
     use App\repositories\UserRepository;
 
 

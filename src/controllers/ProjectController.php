@@ -3,7 +3,6 @@
     use App\Controllers\BaseController;
     use App\Utils\Auth;
     use App\Utils\Session;
-    use App\models\Task;
     use App\repositories\ProjectRepository;
     use App\repositories\TasksRepository;
     use App\models\Project;
@@ -89,11 +88,5 @@
 
             $this->view('projects/create.php');
         }
-
-        
-
-
-
-        
         
     }

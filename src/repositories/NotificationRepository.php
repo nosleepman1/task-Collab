@@ -2,12 +2,10 @@
 
     namespace App\Repositories;
 
-use App\Models\BaseEntity;
-use App\models\Notification;
-use App\Utils\Auth;
-use DateTime;
-use PDO;
-use PDOException;
+    use App\models\Notification;
+    use App\Utils\Auth;
+    use DateTime;
+    use PDOException;
 
     class NotificationRepository extends BaseRepository {
 

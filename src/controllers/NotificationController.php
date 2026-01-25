@@ -2,16 +2,8 @@
     namespace App\Controllers;
     use App\Controllers\BaseController;
     use App\Utils\Auth;
-    use App\Utils\Session;
-    use App\models\Task;
-    use App\repositories\TasksRepository;
-    use App\models\Project;
-    use App\repositories\ProjectRepository;
-    use App\repositories\ProjectMemberRepository;
-    use App\models\ProjectMember;
     use App\repositories\UserRepository;
-    use App\models\User;
-use App\Repositories\NotificationRepository;
+    use App\Repositories\NotificationRepository;
 
     class NotificationController extends BaseController {
 
