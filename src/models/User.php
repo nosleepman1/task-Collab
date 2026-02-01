@@ -77,7 +77,7 @@
             return $this;
         }
 
-        public function setAvatar(string $avatar): self {
+        public function setAvatar(?string $avatar): self {
             $this->avatar = $avatar;
             return $this;
         }
@@ -133,7 +133,7 @@
                 'role' => $this->getRole(),
                 'is_active' => $this->isActive(),
 
-                'avatar' => $this->getAvatar(),
+                'avatar' => $this->getAvatar() ? $this->getAvatar() : null,
                 'fullname' => $this->getFullname(),
                 'initials' => $this->getInitials(),
             ];

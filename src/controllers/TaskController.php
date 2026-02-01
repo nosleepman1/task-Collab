@@ -36,7 +36,7 @@
             }
 
             $tasks = $this->taskRepository->myTasks(Auth::user()->getId());
-            $this->view('tasks/index.php', $tasks);
+            $this->view('tasks/index.php', ['tasks' => $tasks]);
        }
 
 

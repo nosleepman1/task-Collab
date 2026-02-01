@@ -1,3 +1,7 @@
 2026-01-23 22:53:15<br> Erreur PDO : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'field list'
 2026-01-23 22:53:25<br> Erreur PDO : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'status' in 'field list'
 2026-02-01 16:03:33<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.users' doesn't exist
+2026-02-01 16:06:12<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.users' doesn't exist
+2026-02-01 20:21:27<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.tasks' doesn't exist
+2026-02-01 20:26:25<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.tasks' doesn't exist
+2026-02-01 20:26:35<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.tasks' doesn't exist
