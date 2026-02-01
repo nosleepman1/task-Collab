@@ -17,8 +17,9 @@ class UserRepository extends BaseRepository {
         $user->setLastname($data['lastname']);
         $user->setEmail($data['email']);
         $user->setPasswordHash($data['password']);
-        //$user->setRole($data['role']);
-        //$user->setAvatar($data['avatar']);
+        $user->setRole($data['role']);
+        $user->setAvatar($data['avatar']);
+        $user->setIsActive($data['is_active']);
         $user->setCreatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['createdAt']));
         $user->setUpdatedAt(DateTime::createFromFormat('Y-m-d H:i:s', $data['updatedAt']));
         return $user;

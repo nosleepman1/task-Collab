@@ -11,7 +11,7 @@ use PDOException;
 
     class ProjectRepository extends BaseRepository {
 
-        protected $tableName = 'projects';
+        protected string $tableName = 'projects';
 
 
         public function hydrate(array $data) : Project

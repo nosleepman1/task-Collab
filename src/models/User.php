@@ -90,6 +90,11 @@
             return $this;
         }
 
+        public function setIsActive(bool $active){
+            $this->is_active = $active;
+            return $this;
+        }
+
         public function setPassword(string $password): self {
             $this->password = password_hash($password, PASSWORD_BCRYPT);
             return $this;
@@ -110,6 +115,8 @@
          public function isActive(){
             return $this->is_active;
          }
+
+        
 
         
          public function toArray(): array

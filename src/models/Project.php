@@ -8,12 +8,8 @@
         private string $title;
         private string $description;
         private User $owner;
-        
 
-
-
-
-        public function __construct(string $title = '', string $description) {
+        public function __construct(string $title, string $description) {
             parent::__construct();
             $this->title = $title;
             $this->description = $description;
