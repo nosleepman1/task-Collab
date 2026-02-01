@@ -25,7 +25,9 @@
                     <div class="hidden md:block">
                         <div class="ml-10 flex items-baseline space-x-4">
                             <a href="/"
-                                class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'home' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Home</a>
+                                class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'home' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">
+                                Home
+                            </a>
 
                             <?php 
                                 use App\Utils\Auth;
@@ -37,11 +39,16 @@
                                 class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'logout' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Logout</a>
                             <a href="/tasks"
                                 class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'tasks' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Tasks</a>
-                            <a href="#" class="px-3 py-2 rounded-md text-sm font-medium">
-                                <?= Auth::user()->getFullname() ?> </a>
+                           
+                            <a href="#" class="px-3 py-2 rounded-md text-sm font-medium">   
+                            <?= Auth::user()->getFullname() ?>     
+                            </a>
+                            
                             <?php } else { ?>
+
                             <a href="/login"
                                 class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'login' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Login</a>
+                           
                             <a href="/register"
                                 class="px-3 py-2 rounded-md text-sm font-medium <?= $currentPage === 'register' ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white' ?>">Register</a>
 

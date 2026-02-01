@@ -5,3 +5,11 @@
 2026-02-01 20:21:27<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.tasks' doesn't exist
 2026-02-01 20:26:25<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.tasks' doesn't exist
 2026-02-01 20:26:35<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.tasks' doesn't exist
+2026-02-01 20:35:52<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.tasks' doesn't exist
+2026-02-01 20:37:09<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.tasks' doesn't exist
+2026-02-01 20:52:15<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.tasks' doesn't exist
+2026-02-01 20:52:17<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.projects' doesn't exist
+2026-02-01 20:52:19<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.tasks' doesn't exist
+2026-02-01 20:52:21<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.projects' doesn't exist
+2026-02-01 20:52:23<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.tasks' doesn't exist
+2026-02-01 20:52:25<br> Erreur PDO : SQLSTATE[42S02]: Base table or view not found: 1146 Table 'taskcollab.projects' doesn't exist

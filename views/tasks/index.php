@@ -12,7 +12,7 @@
             Liste des tâches
         </p>
 
-        <a href="/create" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
+        <a href="/tasks/create" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300">
             Creer une tache
         </a>
     </div>
@@ -21,7 +21,7 @@
         <?php if(!$tasks): ?>
         <h1 class="text-4xl text-center text-bold">Pas de tache disponible</h1>
         <div class="h-[500px] flex justify-center items-center">
-            <a href="/create"
+            <a href="/tasks/create"
                 class="text-center bg-blue-500 text-2xl text-bold text-white px-8 py-4 rounded-lg hover:bg-white hover:border hover:text-black transition duration-400">
                 Commencez en une
             </a>

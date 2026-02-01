@@ -41,6 +41,7 @@
 
 
        public function showCreateTaskForm(){
+            
             if (!Auth::check()) {
                 $this->redirect('/login');
                 return;
@@ -55,7 +56,7 @@
             $myProjects = $this->projectRepository->myProjects();
             $avalaibleMembers = $this->userRepository->showAvalaibleMembers();
 
-            $this->view('tasks/create.php', [
+            $this->view('/tasks/create.php', [
                 'myProjects' => $myProjects,
                 'avalaibleMembers' => $avalaibleMembers
             ]);
